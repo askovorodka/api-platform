@@ -28,5 +28,5 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Serializer\CustomItemNormalizer:
-      #decorates: 'api_platform.jsonld.normalizer.item'
+      decorates: 'api_platform.jsonld.normalizer.item'
       arguments: [ '@api_platform.serializer.normalizer.item' ]

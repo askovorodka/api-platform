@@ -35,7 +35,11 @@ final class CustomItemNormalizer implements NormalizerInterface, DenormalizerInt
             return $data;
         }
 
-        //dump($data); die;
+        if (isset($data['reviews'])) {
+            foreach ($data['reviews'] as &$review) {
+                $review = array_merge($review, ['test' => 1]);
+            }
+        }
         return $data;
     }
 

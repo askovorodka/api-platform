@@ -35,6 +35,7 @@ class Review
      * @var string
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
+     * @Groups({"book"})
      */
     public $body;
 
@@ -42,6 +43,7 @@ class Review
      * @var string
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Groups({"book"})
      */
     public $author;
 

@@ -67,6 +67,7 @@ class Book
     /**
      * @var Review[]
      * @ORM\OneToMany(targetEntity="Review", mappedBy="book")
+     * @Groups({"book"})
      */
     public $reviews;
 
