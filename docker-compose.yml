@@ -1,8 +1,37 @@
 version: '2'
 services:
-        web:
-                build: .
-                ports:
-                 - 9001:9000
-                volumes:
-                 - .:/var/www
+  mysql:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    volumes:
+      - ./docker-runtime/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "3306:3306"
+
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 9000:9000
+    env_file:
+      - .env
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 80:80
