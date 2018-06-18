@@ -28,5 +28,18 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Serializer\CustomItemNormalizer:
-      decorates: 'api_platform.jsonld.normalizer.item'
+      #decorates: 'api_platform.jsonld.normalizer.item'
       arguments: [ '@api_platform.serializer.normalizer.item' ]
+      tags:
+        - { name: 'serializer.normalizer', priority: 10 }
+
+    app.doctrine.filter.configurator:
+      class: App\Filter\Configurator
+      arguments:
+        - "@doctrine.orm.entity_manager"
+        - "@security.token_storage"
+        - "@request_stack"
+        - "@annotation_reader"
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, priority: 5 }
+      autoconfigure: false

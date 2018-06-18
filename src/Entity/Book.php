@@ -7,11 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Annotation\IsActive;
 
 /**
  * Class Book
  * @package App\Entity
  * @ORM\Entity
+ * @IsActive(fieldName="is_active")
  * @ApiResource(attributes={
  *     "normalization_context"={"groups"={"book"}}
  *     })
@@ -24,6 +26,7 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"book"})
      */
     private $id;
 
@@ -70,6 +73,13 @@ class Book
      * @Groups({"book"})
      */
     public $reviews;
+
+    /**
+     * @var smallint
+     * @ORM\Column(type="smallint", name="is_active", options={"comment": "active=1", "default":"0"})
+     *
+     */
+    public $isActive;
 
     public function __construct()
     {

@@ -37,3 +37,8 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
+        filters:
+            is_active_filter:
+                class: App\Filter\IsActiveFilter
+                enabled: true
